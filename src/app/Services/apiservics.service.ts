@@ -14,4 +14,15 @@ export class ApiservicsService {
   {
     return this.http.get<any>(this.urlPath);
   }
+
+  getPostData(id:number):Observable<any>
+  {
+    return this.http.get<any>(`https://jsonplaceholder.typicode.com/posts?userId=${id}`);
+
+  }
+
+  getTodoData(id:number):Observable<any>
+  {
+    return this.http.get<any>(`https://jsonplaceholder.typicode.com/todos?userId=${id}`);
+  }
 }

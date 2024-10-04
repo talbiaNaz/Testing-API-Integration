@@ -1,31 +1,68 @@
-<div class="w-screen h-screen bg-slate-300 flex justify-center items-center">
-    <div class="flex flex-col items-center">
-        <div class="mb-6">
-            <h1 class="text-slate-700 text-4xl font-bold">Showing Data from API</h1>
+<div class="w-screen h-screen bg-gray-100 flex justify-center items-start">
+    <div class="flex flex-col items-center w-full max-w-6xl p-6 rounded-lg shadow-lg bg-white">
+        <div class="mb-8 text-center">
+            <h1 class="text-gray-800 text-5xl font-extrabold">Showing Data from API</h1>
+            <p class="mt-2 text-gray-500">Fetch and display user data with todos and posts.</p>
         </div>
-        <div class="overflow-x-auto shadow-lg rounded-lg">
-            <table class="min-w-full bg-white rounded-lg overflow-hidden">
-                <thead class="bg-slate-600 text-white">
+
+        <div class="overflow-x-auto rounded-lg shadow-md mb-6">
+            <table class="min-w-full bg-white rounded-lg">
+                <thead class="bg-gray-800 text-white">
                     <tr>
-                        <th class="text-left py-3 px-5">Id</th>
-                        <th class="text-left py-3 px-5">Name</th>
-                        <th class="text-left py-3 px-5">Username</th>
-                        <th class="text-left py-3 px-5">Email</th>
-                        <th class="text-left py-3 px-5">Phone No</th>
-                        <th class="text-left py-3 px-5">Website</th>
+                        <th class="text-left py-4 px-6">ID</th>
+                        <th class="text-left py-4 px-6">Name</th>
+                        <th class="text-left py-4 px-6">Username</th>
+                        <th class="text-left py-4 px-6">Email</th>
+                        <th class="text-left py-4 px-6">Phone No</th>
+                        <th class="text-left py-4 px-6">Website</th>
+                        <th class="text-left py-4 px-6">Show List</th>
+                        <th class="text-left py-4 px-6">Show Todo</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-700">
-                    <tr *ngFor="let user of users" class="border-b hover:bg-gray-100">
-                        <td class="py-3 px-5">{{ user.id }}</td>
-                        <td class="py-3 px-5">{{ user.name }}</td>
-                        <td class="py-3 px-5">{{ user.username }}</td>
-                        <td class="py-3 px-5">{{ user.email }}</td>
-                        <td class="py-3 px-5">{{ user.phone }}</td>
-                        <td class="py-3 px-5">{{ user.website }}</td>
+                    <tr *ngFor="let user of users" class="border-b hover:bg-gray-200">
+                        <td class="py-3 px-6">{{ user.id }}</td>
+                        <td class="py-3 px-6">{{ user.name }}</td>
+                        <td class="py-3 px-6">{{ user.username }}</td>
+                        <td class="py-3 px-6">{{ user.email }}</td>
+                        <td class="py-3 px-6">{{ user.phone }}</td>
+                        <td class="py-3 px-6">{{ user.website }}</td>
+                        <td class="py-3 px-6">
+                            <input type="button" (click)="showListBtn(user.id)" 
+                                   class="bg-blue-500 text-white font-semibold rounded-lg px-4 py-2 hover:bg-blue-600 transition duration-300" 
+                                   value="Show List" />
+                        </td>
+                        <td class="py-3 px-6">
+                            <input type="button" (click)="showTodosData(user.id)" 
+                                   class="bg-green-500 text-white font-semibold rounded-lg px-4 py-2 hover:bg-green-600 transition duration-300" 
+                                   value="Show Todo" />
+                        </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <!-- Container for Posts and Todos -->
+        <div class="mt-16 w-full flex justify-between ">
+            <div *ngIf="lsits.length > 0" class="w-1/2 mb-6">
+                <h3 class="text-3xl font-bold text-gray-800 mb-4">Posts</h3>
+                <div *ngFor="let post of lsits" class="max-w-md bg-white shadow-md rounded-lg overflow-hidden mb-4 mx-auto transition transform hover:scale-105 duration-300">
+                    <div class="p-4">
+                        {{ post.ID }}<h4 class="text-xl font-semibold text-gray-800">{{ post.title }}</h4>
+                        <p class="mt-2 text-gray-600">{{ post.body }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="todos.length > 0" class="w-1/2 mb-6">
+                <h3 class="text-3xl font-bold text-gray-800 mb-4">Todos</h3>
+                <div *ngFor="let todo of todos" class="max-w-md bg-white shadow-md rounded-lg overflow-hidden mb-4 mx-auto transition transform hover:scale-105 duration-300">
+                    <div class="p-4">
+                        {{ todo.ID }}<h4 class="text-xl font-semibold text-gray-800">{{ todo.title }}</h4>
+                        <p class="mt-2 text-gray-600">Status: <span class="{{ todo.completed ? 'text-green-500' : 'text-red-500' }}">{{ todo.completed ? 'Completed' : 'Incomplete' }}</span></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
